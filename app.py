@@ -1,36 +1,31 @@
 import pickle
 import streamlit as st
 import requests
-import gdown
 import os
 
-# Function to download a file from Google Drive with fallback
-def download_from_drive(file_id, destination_path):
+# Function to download a file directly via requests
+def download_file_from_url(url, destination_path):
     folder_path = os.path.dirname(destination_path)
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
 
-    url = f"https://drive.google.com/uc?id={file_id}"
-    try:
-        gdown.download(url, destination_path, quiet=False)
-    except Exception as e:
-        # Fallback using requests if gdown fails
-        st.warning(f"gdown failed, falling back to requests: {e}")
-        response = requests.get(url, stream=True)
+    response = requests.get(url, stream=True)
+    if response.status_code == 200:
         with open(destination_path, 'wb') as f:
             for chunk in response.iter_content(chunk_size=8192):
                 if chunk:
                     f.write(chunk)
+    else:
+        st.error(f"Failed to download file from {url}. Status code: {response.status_code}")
 
-# Download similarity.pkl from Google Drive
-similarity_file_id = '1CJTivDBrWr20D9Ddi64djYtIj-AXjIgR'
+# Direct download links
+similarity_file_url = "https://drive.google.com/u/0/uc?id=1CJTivDBrWr20D9Ddi64djYtIj-AXjIgR&export=download"
 similarity_file_path = 'artifacts/similarity.pkl'
-download_from_drive(similarity_file_id, similarity_file_path)
+download_file_from_url(similarity_file_url, similarity_file_path)
 
-# Download movie_list.pkl from Google Drive
-movie_list_file_id = '1B4RBzV2d64wqI-plJARQhOA0kNYY53jA'
+movie_list_file_url = "https://drive.google.com/u/0/uc?id=1B4RBzV2d64wqI-plJARQhOA0kNYY53jA&export=download"
 movie_list_file_path = 'artifacts/movie_list.pkl'
-download_from_drive(movie_list_file_id, movie_list_file_path)
+download_file_from_url(movie_list_file_url, movie_list_file_path)
 
 # Load movie data and similarity matrix
 movies = pickle.load(open(movie_list_file_path, 'rb'))
