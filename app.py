@@ -3,7 +3,7 @@ import streamlit as st
 import requests
 import os
 
-# Function to download file from GitHub release
+# Function to download file from GitHub releases
 def download_file(url, destination_path):
     folder = os.path.dirname(destination_path)
     if not os.path.exists(folder):
@@ -18,15 +18,15 @@ def download_file(url, destination_path):
         st.error(f"Failed to download from: {url}")
         st.stop()
 
-# Replace with your GitHub Release URLs after uploading
+# Direct GitHub release links
 similarity_url = "https://github.com/farhan-jisan/movie-recommender/releases/download/v1.0/similarity.pkl"
 movie_list_url = "https://github.com/farhan-jisan/movie-recommender/releases/download/v1.0/movie_list.pkl"
 
-# File paths
+# File paths for saving locally
 similarity_path = "artifacts/similarity.pkl"
 movie_list_path = "artifacts/movie_list.pkl"
 
-# Download the files
+# Download the files from GitHub releases
 download_file(similarity_url, similarity_path)
 download_file(movie_list_url, movie_list_path)
 
