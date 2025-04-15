@@ -1,0 +1,20 @@
+Metadata-Version: 2.4
+Name: Movie_recommender
+Version: 0.1
+Summary: A content-based movie recommendation system using NLP and cosine similarity.
+Author: Farhan Tasnim Jisan
+Author-email: farhantasnim.22@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: scikit-learn
+Requires-Dist: nltk
+Requires-Dist: streamlit
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
